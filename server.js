@@ -49,7 +49,7 @@ serve(async(req) => {
     }
     if(req.method === "GET" && pathname === "/dbtest"){
         const users = ["a", "b", "c"];
-        const db = new DB("wnjpn.db");
+        const db = new DB("/wnjpn.db");
         const k = "課金"
         for (const user of db.query(`SELECT wordid FROM word where lemma = '${k}'`,)) {
             console.log(user);
