@@ -48,19 +48,7 @@ serve(async(req) => {
         previousWords[previousWords.length] = nextWord;
         return new Response(previousWords)
     }
-    if(req.method === "GET" && pathname === "/dbtest"){
-        const users = ["a", "b", "c"];
-        const db = new DB("wnjpn.db");
-        const k = "課金"
-        for (const user of db.query(`SELECT wordid FROM word where lemma = '${k}'`,)) {
-            console.log(user);
-        }
-        const a = db.query(`SELECT wordid FROM word where lemma = '${k}'`);
-        const b = a.pop().pop()
-        console.log(b == 216405);
-        db.close();
-        return new Response(previousWord);
-    }
+    
     return serveDir(req,{
         fsRoot:"public",
         urlRoot:"",
