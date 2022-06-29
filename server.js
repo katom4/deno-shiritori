@@ -1,8 +1,8 @@
 import { serve } from "https://deno.land/std@0.138.0/http/server.ts"
 import { serveDir } from "https://deno.land/std@0.138.0/http/file_server.ts"
-import { DB } from "https://deno.land/x/sqlite/mod.ts";
+//import { DB } from "https://deno.land/x/sqlite/mod.ts";
 
-const db = new DB("wnjpn.db");
+//const db = new DB("wnjpn.db");
 let previousWord = "しりとり";
 let previousWords = new Array() ["しりとり"];
 console.log("Listening on http://localhost:8000");
