@@ -13,6 +13,7 @@
     <div id="score"></div>
     <input id="nextWordInput" type="text" />
     <button id="nextWordSendButtonEndless">送信</button>
+    <button id="firebasetest">テスト</button>
     <script type="module" src="js/sendWord.js"></script>
     <div>
         <p>履歴</p>
@@ -29,5 +30,46 @@
         <p id="pre9"></p>
         <p id="pre10"></p>
     </div>
+   
 </body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+    // @deno-types="https://cdn.esm.sh/v58/firebase@9.4.1/firestore/dist/firestore/index.d.ts"
+    import {
+    doc,
+    getDoc,
+    getFirestore,
+    collection, addDoc,
+    } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore-lite.js";
+    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+
+    import { Env } from "https://cdn.skypack.dev/@humanwhocodes/env?min";
+
+    import * as dotenv from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
+    
+    const env = new Env();
+    console.log(env.get("T"));
+    const firebaseConfig = JSON.parse(env.get("FIREBASE_CONFIG"));
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const auth = getAuth(app);
+    const email = "kanri@example.com"
+    const password = "190829387"
+    await signInWithEmailAndPassword(auth, email, password);
+    try {
+    const docRef = await addDoc(collection(db, "users"), {
+        first: "Ada",
+        last: "Lovelace",
+        born: 1815
+    });
+    console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+    console.error("Error adding document: ", e);
+    }
+    
+    
+    
+    // Initialize Firebase
+  </script>
 </html>

@@ -1,3 +1,18 @@
+
+
+document.querySelector("#firebasetest").onclick = 
+  async(event) => {
+    /*try {
+        const docRef = await addDoc(collection(db, "users"), {
+          first: "Ada",
+          last: "Lovelace",
+          born: 1815
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }*/
+  };
 window.onload = async(event) =>{
     const response = await fetch("/shiritori");
     const responseText = await response.text();
@@ -77,4 +92,10 @@ window.onload = async(event) =>{
           j++;
           document.querySelector(id).innerText = previousWords[i];
       }
+      var connection = new WebSocket("ws://localhost:8000/ws/");
+      connection.onmessage = function(e) {
+ 
+        console.log(e.data);
+     
+    };
   };

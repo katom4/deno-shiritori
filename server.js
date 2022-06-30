@@ -32,6 +32,9 @@ serve(async(req) => {
         });
     }
     if(req.method === "POST" && pathname === "/endless/shiritori"){
+        var connection = new WebSocket("ws://localhost:8000/ws/");
+        connection.send("aaa");
+        console.log("aaa")
         const requestJson = await req.json();
         const nextWord = requestJson.nextWord;
         const preWord = previousWords[previousWords.length-1];
