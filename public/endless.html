@@ -46,9 +46,9 @@
     import { Env } from "https://cdn.skypack.dev/@humanwhocodes/env?min";
 
     import * as dotenv from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
-    
+
     const env = new Env();
-    console.log(env.get("T"));
+    console.log(env.get("TEST"));
     const firebaseConfig = JSON.parse(env.get("FIREBASE_CONFIG"));
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
