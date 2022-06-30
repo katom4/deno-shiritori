@@ -46,13 +46,14 @@
     import { Env } from "https://cdn.skypack.dev/@humanwhocodes/env?min";
 
     import * as dotenv from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
-
+    console.log("1");
     const env = new Env();
+    console.log("2");
     console.log(env.get("TEST"));
     const firebaseConfig = JSON.parse(env.get("FIREBASE_CONFIG"));
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
+    console.log("3");
     const auth = getAuth(app);
     const email = "kanri@example.com"
     const password = "190829387"
