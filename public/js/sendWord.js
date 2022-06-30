@@ -36,7 +36,6 @@ window.onload = async(event) =>{
             return;
         }
       const previousWord = await response.text();
-
       document.querySelector("#nextWordInput").value = "";
       const para = document.querySelector("#previousWord");
       para.innerText = `前の単語：${previousWord}`;
