@@ -48,7 +48,7 @@
       para.innerText = `1`;
     const env = new Env();
     const p = document.querySelector("#pre5");
-      p.innerText = `2`;
+      p.innerText = env.get("TEST");
     console.log(env.get("TEST"));
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
