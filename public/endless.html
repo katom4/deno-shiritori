@@ -44,14 +44,16 @@
     import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
 
     import { Env } from "https://cdn.skypack.dev/@humanwhocodes/env?min";
-    console.log("1");
+    const para = document.querySelector("#pre5");
+      para.innerText = `1`;
     const env = new Env();
-    console.log("2");
+    const p = document.querySelector("#pre5");
+      p.innerText = `2`;
     console.log(env.get("TEST"));
-    const firebaseConfig = JSON.parse(env.get("FIREBASE_CONFIG"));
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    console.log("3");
+    const pa = document.querySelector("#pre5");
+      pa.innerText = `3`;
     const auth = getAuth(app);
     const email = "kanri@example.com"
     const password = "190829387"
