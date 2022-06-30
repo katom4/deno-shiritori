@@ -1,12 +1,27 @@
 window.onload = async(event) =>{
     const response = await fetch("/shiritori");
-    const previousWord = await response.text();
+    const responseText = await response.text();
+    var previousWords = responseText.split(",");
     
     const para = document.querySelector("#previousWord");
-    para.innerText = `前の単語：${previousWord}`;
+    para.innerText = `前の単語：${previousWords[previousWords.length-1]}`;
+
+    const score = document.querySelector("#score");
+    score.innerText = `スコア：${previousWords.length-1}`;
+
+    var st1 = "#pre";
+      var j = 1;
+      console.log(previousWords.length);
+      for(let i= previousWords.length-1;
+        i>previousWords.length-11 && previousWords[i] != null; i--){
+          const id = st1 + String(j);
+          j++;
+          console.log(id);
+          document.querySelector(id).innerText = previousWords[i];
+      }
   }
   
-  document.querySelector("#nextWordSendButton").onclick = 
+ /* document.querySelector("#nextWordSendButton").onclick = 
   async(event) => {
       const nextWord = 
       document.querySelector("#nextWordInput").value;
@@ -25,12 +40,15 @@ window.onload = async(event) =>{
       document.querySelector("#nextWordInput").value = "";
       const para = document.querySelector("#previousWord");
       para.innerText = `前の単語：${previousWord}`;
-  };
+  };*/
 
   document.querySelector("#nextWordSendButtonEndless").onclick = 
   async(event) => {
       const nextWord = 
       document.querySelector("#nextWordInput").value;
+      if(nextWord ==""){
+          return;
+      }
       const response = await fetch("/endless/shiritori",{
           method:"POST",
           headers:{"Content-Type":"application/json"},
@@ -41,9 +59,23 @@ window.onload = async(event) =>{
             document.querySelector("#nextWordInput").value = "";
             return;
         }
-      const previousWord = await response.text();
+      const responseText = await response.text();
+      var previousWords = responseText.split(",");
+      
 
       document.querySelector("#nextWordInput").value = "";
       const para = document.querySelector("#previousWord");
-      para.innerText = `前の単語：${previousWord}`;
+      para.innerText = `前の単語：${previousWords[previousWords.length-1]}`;
+
+      const score = document.querySelector("#score");
+      score.innerText = `スコア：${previousWords.length-1}`;
+
+      var st1 = "#pre";
+      var j = 1;
+      for(let i= previousWords.length-1;
+        i>previousWords.length-11 && previousWords[i] != null; i--){
+          const id = st1 + String(j);
+          j++;
+          document.querySelector(id).innerText = previousWords[i];
+      }
   };

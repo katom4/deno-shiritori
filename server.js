@@ -1,9 +1,9 @@
 import { serve } from "https://deno.land/std@0.138.0/http/server.ts"
 import { serveDir } from "https://deno.land/std@0.138.0/http/file_server.ts"
-import { DB } from "https://deno.land/x/sqlite/mod.ts"
+
 
 let previousWord = "しりとり";
-let previousWords = new Array() ["しりとり"];
+let previousWords = new Array("しりとり") ;
 console.log("Listening on http://localhost:8000");
 
 serve(async(req) => {
@@ -11,7 +11,7 @@ serve(async(req) => {
     console.log(pathname);
 
     if(req.method === "GET" && pathname === "/shiritori"){
-        return new Response(previousWord);
+        return new Response(previousWords);
     }
     if(req.method === "POST" && pathname === "/shiritori"){
         const requestJson = await req.json();
@@ -35,19 +35,23 @@ serve(async(req) => {
     if(req.method === "POST" && pathname === "/endless/shiritori"){
         const requestJson = await req.json();
         const nextWord = requestJson.nextWord;
-        preWord = previousWords[previousWords.length-1];
-        if(
-            nextWord.length > 0 &&
-            preWord.charAt(preWord.length -1) !== nextWord.charAt(0)
-        ){
+        const preWord = previousWords[previousWords.length-1];
+        
+        if(preWord.charAt(preWord.length -1) !== nextWord.charAt(0)){
             return new Response("前の単語に続いていません",{
                 status:400
             });
         }
+        else if(previousWords.indexOf(nextWord) != -1){
+            return new Response("既に使われた単語です！",{
+                status:400
+            });
+        }
+        
         previousWords[previousWords.length] = nextWord;
         return new Response(previousWords)
     }
-    if(req.method === "GET" && pathname === "/dbtest"){
+    /*if(req.method === "GET" && pathname === "/dbtest"){
         const users = ["a", "b", "c"];
         const db = new DB("/wnjpn.db");
         const k = "課金"
@@ -59,7 +63,7 @@ serve(async(req) => {
         console.log(b == 216405);
         db.close();
         return new Response(b);
-    }
+    }*/
     return serveDir(req,{
         fsRoot:"public",
         urlRoot:"",
