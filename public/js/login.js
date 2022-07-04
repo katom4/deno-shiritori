@@ -6,7 +6,7 @@ getDoc,
 getFirestore,
 collection, addDoc,
 } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore-lite.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged,GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+import { getAuth, sendEmailVerification ,signInWithEmailAndPassword, onAuthStateChanged,GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
 const FIREBASE_CONFIG = {
     apiKey: "AIzaSyDKPEjJwGuNmgOiMpMHnTNVSg3Fkk5WQpc",
     authDomain: "deno-test-d6346.firebaseapp.com",
@@ -25,10 +25,8 @@ window.onload = async(event) =>{
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/firebase.User
           uid = user.uid;
-          console.log("in");
-          var a = document.querySelector("#check");
-             a.innerText = "your id is "+uid;
-          // ...
+          document.querySelector("#all").style.display="none";
+          document.querySelector("#isLoginSen").innerText = "ログインしています!";
         } else {
           // User is signed out
           // ...
@@ -51,13 +49,13 @@ async(event) => {
             // Signed in
             const user = userCredential.user;
             // ...
-            console.log(user);
-            console.log("login");
+            window.location.href = "/";
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log("error");
+            document.querySelector("#warning").style.display = "block";
+            document.querySelector("#warning").innerText= "ログインできませんでした。入力内容を確認してください。";
         });
     
     

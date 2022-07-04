@@ -93,19 +93,16 @@ serve(async(req) => {
         console.log(a);
         return new Response(uid);
     }
-    /*if(req.method === "GET" && pathname === "/dbtest"){
-        const users = ["a", "b", "c"];
-        const db = new DB("/wnjpn.db");
-        const k = "課金"
-        for (const user of db.query(`SELECT wordid FROM word where lemma = '${k}'`,)) {
-            console.log(user);
-        }
-        const a = db.query(`SELECT wordid FROM word where lemma = '${k}'`);
-        const b = a.pop().pop()
-        console.log(b == 216405);
-        db.close();
-        return new Response(b);
-    }*/
+    if(req.method === "GET" && pathname === "/mypage"){
+        return new Response(await Deno.readTextFile("./public/mypage.html"), {
+            headers: { "Content-Type": "text/html; charset=utf-8" },
+        });
+    }
+    if(req.method === "GET" && pathname === "/register"){
+        return new Response(await Deno.readTextFile("./public/register.html"), {
+            headers: { "Content-Type": "text/html; charset=utf-8" },
+        });
+    }
     return serveDir(req,{
         fsRoot:"public",
         urlRoot:"",

@@ -20,45 +20,21 @@ const FIREBASE_CONFIG = {
 const app = initializeApp(FIREBASE_CONFIG);
 const auth = getAuth();
 const db = getFirestore(app);
-console.log("aakkk");
 var uid ="";
-
-document.querySelector("#firebasetest").onclick = 
-async(event) => {
-  const querySnapshot = await getDocs(collection(db, "words"));
-  querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
-    console.log(doc.data()["word"]);
-  });
-  const wordsRef = collection(db,"words");
-  await getDocs(query(wordsRef, where("word", "==", "りんごご"))).then(snapshot => {
-    snapshot.forEach(doc => {
-      console.log(`${doc.id}: ${doc.data().word}`);
-    })
-  })
-  /*try {
-      const docRef = await addDoc(collection(db, "users"), {
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }*/
-};
+var isVerified = false;
 window.onload = async(event) =>{
+  var isLogin = false;
   await onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         uid = user.uid;
+        isLogin = true;
+        isVerified = user.emailVerified;
       } else {
-        // User is signed out
-        // ...
+        return;
       }
-    });
-  
+    })
   const wordsRef = collection(db,"words");
   var previousWords = new Array();
   await getDocs(query(wordsRef, orderBy("createAt","desc"),limit(10))).then(snapshot => {
@@ -106,6 +82,16 @@ async(event) => {
 
 document.querySelector("#nextWordSendButtonEndless").onclick = 
 async(event) => {
+  if(uid == ""){
+    alert("ログインしてください!");
+    document.querySelector("#nextWordInput").value = "";
+    return;
+  }
+  if(!isVerified){
+    alert("メール認証が完了していません");
+    document.querySelector("#nextWordInput").value = "";
+    return;
+  }
     const nextWord = 
     document.querySelector("#nextWordInput").value;
     const response = await fetch("/endless/shiritori",{
@@ -122,14 +108,17 @@ async(event) => {
     console.log(responseText);
     if(responseText=="correct"){
       //既に使われている単語か判定
+      var isOver = false;
       const wordsRef = collection(db,"words");
       await getDocs(query(wordsRef, where("word", "==", nextWord))).then(snapshot => {
         snapshot.forEach(doc => {
           alert(nextWord+"はすでに使われている単語です");
           document.querySelector("#nextWordInput").value = "";
+          isOver = true;
           return;
         })
       })
+      if(isOver) return;
       var preWord = "";
       //最後の文字に続いているか判定
       await getDocs(query(wordsRef, orderBy("createAt","desc"),limit(1))).then(snapshot => {
@@ -140,10 +129,10 @@ async(event) => {
       console.log("word:",preWord);
       if(preWord.charAt(preWord.length -1) !== nextWord.charAt(0)){
         alert("最後の文字に続いていません");
-        return;
+        document.querySelector("#nextWordInput").value = "";
+      return;
       }
       //1日1回を超えていないか判定
-      var isOver = false;
       await getDocs(query(wordsRef, orderBy("createAt","desc"),where("uid" ,"==", uid),limit(1))).then(snapshot => {
         snapshot.forEach(doc => {
           
@@ -157,8 +146,9 @@ async(event) => {
           console.log(shapedNow);
           console.log(shapedNow.getTime() > preDate.getTime());
           if(shapedNow.getTime() <= preDate.getTime()){
-            alert("投稿できる上限に達しています");
-            isOver = true;
+              alert("投稿できる上限に達しています");
+              document.querySelector("#nextWordInput").value = "";
+              isOver = true;
           }
         })
       })
@@ -173,20 +163,6 @@ async(event) => {
       } catch (e) {
         console.error("Error adding document: ", e);
       }
-    }
-    document.querySelector("#nextWordInput").value = "";
-    const para = document.querySelector("#previousWord");
-    para.innerText = `前の単語：${previousWords[previousWords.length-1]}`;
-
-    const score = document.querySelector("#score");
-    score.innerText = `スコア：${previousWords.length-1}`;
-
-    var st1 = "#pre";
-    var j = 1;
-    for(let i= previousWords.length-1;
-      i>previousWords.length-11 && previousWords[i] != null; i--){
-        const id = st1 + String(j);
-        j++;
-        document.querySelector(id).innerText = previousWords[i];
+      window.location.href = "endless";
     }
 };
