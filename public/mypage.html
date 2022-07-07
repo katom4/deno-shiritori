@@ -36,26 +36,36 @@
     <script type="module" src="js/mypage.js"></script>
     <div class="p-2">
         <div class="h3">マイページ</div>
+        <p class="bg-info text-dark rounded p-3" id="info" style="display:none;">
+            
+        </p>
+        <p class="bg-warning text-dark rounded p-3" id="warning" style="display:none">
+            
+        </p>
+        <div class="p-2" id="isLoginSen"></div>
         <div id = "isVerified" class="p-2" style="display:none">
+            
             <div class="p-2">
                 メール認証が終了していません。<br>
                 確認メールを再送信する場合はこちらのボタンを押してください<div class="br">
     
             </div>
         </div>
+        
             <div>
                 <button class="btn btn-primary" id ="resend">
                     再送信
                 </button>
             </div>
-          </div>
+        </div>
+        
             <div id="lastDate" class="py-3">
 
             </div>
             <div id="myEmail" class="py-3">
 
             </div>
-            <div class="py-4">
+            <div class="py-4" id = "logoutDiv">
                 <button id="logout" class="btn btn-danger">ログアウト</button>
             </div>
         </div>
