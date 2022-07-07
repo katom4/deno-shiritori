@@ -42,6 +42,9 @@ window.addEventListener("load",async(event) =>{
                 const text = `最後に投稿したのは${year}年${month}月${date}日です`;
                 lastDateDiv.innerText = text;
             })
+            const subtext1 = "登録されているメールアドレスは "
+            const subtext2 =" です。"
+            document.querySelector("#myEmail").innerText = subtext1 + user.email + subtext2;
         })
         } else {
             console.log(window.location.href);

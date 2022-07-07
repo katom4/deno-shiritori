@@ -5,7 +5,7 @@ doc,
 getDoc,
 getDocs,
 getFirestore,
-collection, addDoc,query,where,orderBy,limit,Timestamp
+collection, addDoc,query,where,orderBy,limit,Timestamp,serverTimestamp
 } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged,GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
 const FIREBASE_CONFIG = {
@@ -31,33 +31,40 @@ window.onload = async(event) =>{
         uid = user.uid;
         isLogin = true;
         isVerified = user.emailVerified;
+        if(!isVerified){
+          document.querySelector("#warning").style.display = "block";
+          document.querySelector("#warning").innerText = "メール認証が完了していないため、投稿できません。\n認証を行うかマイページからメールの再送信を行ってください。";
+        }
       } else {
-        return;
+        document.querySelector("#warning").style.display = "block";
+        document.querySelector("#warning").innerText = "ログインしていません。\nログインするか、アカウントをお持ちでない場合は新規作成を行ってください。";
       }
     })
   const wordsRef = collection(db,"words");
   var previousWords = new Array();
-  await getDocs(query(wordsRef, orderBy("createAt","desc"),limit(10))).then(snapshot => {
+  await getDocs(query(wordsRef, orderBy("createAt","desc"))).then(snapshot => {
     snapshot.forEach(doc => {
       const preWord =doc.data()["word"];
       previousWords.push(preWord);
       console.log(preWord);
     })
   })
-  previousWords.reverse();
   console.log(previousWords);
   const para = document.querySelector("#previousWord");
-  para.innerText = `前の単語：${previousWords[previousWords.length-1]}`;
-  var st1 = "#pre";
-    var j = 1;
+  para.innerText = `前の単語：${previousWords[0]}`;
     console.log(previousWords.length);
-    for(let i= previousWords.length-1;
-      i>previousWords.length-11 && previousWords[i] != null; i--){
-        const id = st1 + String(j);
-        j++;
-        console.log(id);
-        document.querySelector(id).innerText = previousWords[i];
-    }
+    previousWords.forEach((elem,index)=>{
+      console.log(elem);
+      var posts = document.querySelector("#preWords");
+      var border = document.createElement("div");
+      border.setAttribute("class","border-top pb-2");
+      var post = document.createElement("p");
+      post.class = "h6";
+      post.innerText = elem;
+      post.setAttribute("class","h6")
+      posts.appendChild(post);
+      posts.appendChild(border);
+    });
 }
 
 /* document.querySelector("#nextWordSendButton").onclick = 
@@ -157,12 +164,13 @@ async(event) => {
         const docRef = await addDoc(collection(db, "words"), {
           word: nextWord,
           uid: uid,
-          createAt:Timestamp.now()
+          createAt:serverTimestamp(),
         });
-        console.log("Document written with ID: ", docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
+        alert("送信エラーが発生しました");
+        return;
       }
-      window.location.href = "endless";
     }
+    window.location.href = "endless"
 };

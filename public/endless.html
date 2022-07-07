@@ -12,7 +12,7 @@
 <body>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">1日1しりとり</a>
+          <a class="navbar-brand" href="/">いちにちとり</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -33,27 +33,29 @@
           </div>
         </div>
       </nav>
-    <h1>しりとり（エンドレス）</h1>
-    <div id="previousWord"></div>
-    <div id="score"></div>
-    <input id="nextWordInput" type="text" />
-    <button id="nextWordSendButtonEndless">送信</button>
-    <button id="firebasetest">テスト</button>
-    <script type="module" src="js/sendWord.js"></script>
-    <div>
-        <p>履歴</p>
-    </div>
-    <div id="preWords">
-        <p id="pre1"></p>
-        <p id="pre2"></p>
-        <p id="pre3"></p>
-        <p id="pre4"></p>
-        <p id="pre5"></p>
-        <p id="pre6"></p>
-        <p id="pre7"></p>
-        <p id="pre8"></p>
-        <p id="pre9"></p>
-        <p id="pre10"></p>
+    <div class="p-2">
+      <div class="h3">しりとり</div>
+      <p class="bg-info text-dark rounded p-3" id="info" style="display:none">
+                
+      </p>
+      <p class="bg-warning text-dark rounded p-3" id="warning" style="display:none">
+          
+      </p>
+      <div id="previousWord" class="pb-2"></div>
+      <div class='input-group w-50 pb-5'>
+        <input id="nextWordInput" type="text" class="form-control" placeholder="しりとり"/>
+        <div class="input-group-append">
+          <button id="nextWordSendButtonEndless" class="btn btn-primary">送信</button>
+        </div>
+      </div>
+      <script type="module" src="js/sendWord.js"></script>
+      <div>
+          <p class="h4 pt-4">履歴</p>
+          <div class="border-bottom mb-4"></div>
+      </div>
+      <div id="preWords">
+
+      </div>
     </div>
 </body>
     

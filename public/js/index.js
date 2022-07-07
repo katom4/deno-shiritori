@@ -31,8 +31,7 @@ window.onload = async(event) =>{
             warning.innerText = "メール認証が完了していません。\nメール認証を行うか、マイページから認証メールの再送信を行ってください";
           }
         } else {
-          // User is signed out
-          // ...
+          document.querySelector("#loginLinks").style.display = "block";
         }
       });
 }

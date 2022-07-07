@@ -60,6 +60,11 @@ serve(async(req) => {
                 status:400
             });
         }
+        else if(judge == "not shiritori"){
+            return new Response("終わってはいけない文字で終わっています",{
+                status:400
+            });
+        }
         
         return new Response(judge)
     }
@@ -115,10 +120,13 @@ function judgeWord(word){
     const isNone = word!=""
     const isHiragana = word.match(/^[ぁ-んー　]*$/);
     const isWord = true;
+    const ngWords = ["ん","ぁ","ぃ","ぅ","ぇ","ぉ","ゃ","ゅ","ょ","っ","ぢ"];
+    const isShiritori = !ngWords.includes(word.charAt(word.length-1));
 
     if(!isNone)return "please word";
     if(!isHiragana)return "not hiragana";
     if(!isWord)return "not word";
+    if(!isShiritori)return "not shiritori";
 
     return "correct";
 }

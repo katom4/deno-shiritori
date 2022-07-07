@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">1日1しりとり</a>
+            <a class="navbar-brand" href="/">いちにちとり</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,22 +34,30 @@
         </div>
     </nav>
     <script type="module" src="js/mypage.js"></script>
-    <div class="p-2"></div>
-    <div id = "isVerified" class="p-2" style="display:none">
-        <div class="p-2">
-            メール認証が終了していません。<br>
-            確認メールを再送信する場合はこちらのボタンを押してください<div class="br"></div>
+    <div class="p-2">
+        <div class="h3">マイページ</div>
+        <div id = "isVerified" class="p-2" style="display:none">
+            <div class="p-2">
+                メール認証が終了していません。<br>
+                確認メールを再送信する場合はこちらのボタンを押してください<div class="br">
+    
+            </div>
         </div>
-        <div class="p-2">
-            <button class="btn btn-primary" id ="resend">
-                再送信
-            </button>
-        </div>
-      </div>
-        <div class="p-2 h3">履歴</div>
-        <div id="lastDate" class="p-2" ></div>
-        <div class="pt-5 p-2">
-            <button id="logout" class="btn btn-danger">ログアウト</button>
+            <div>
+                <button class="btn btn-primary" id ="resend">
+                    再送信
+                </button>
+            </div>
+          </div>
+            <div id="lastDate" class="py-3">
+
+            </div>
+            <div id="myEmail" class="py-3">
+
+            </div>
+            <div class="py-4">
+                <button id="logout" class="btn btn-danger">ログアウト</button>
+            </div>
         </div>
     </div>
 </body>
