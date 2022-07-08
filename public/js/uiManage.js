@@ -9,9 +9,6 @@ const auth = getAuth();
 const db = getFirestore(app);
 var uid ="";
 
-window.onload = async(event) =>{
-    
-}
 window.addEventListener("load",async(event) =>{
     await onAuthStateChanged(auth, (user) => {
         if (user) {

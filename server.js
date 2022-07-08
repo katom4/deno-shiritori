@@ -59,41 +59,6 @@ serve(async(req) => {
             headers: { "Content-Type": "text/html; charset=utf-8" },
         });
     }
-    if(req.method === "POST" && pathname === "/endless/shiritori"){
-        var connection = new WebSocket("ws://localhost:8000/ws/");
-        connection.send("aaa");
-        console.log("aaa")
-        const requestJson = await req.json();
-        const nextWord = requestJson.nextWord;
-        const preWord = previousWords[previousWords.length-1];
-        
-        if(preWord.charAt(preWord.length -1) !== nextWord.charAt(0)){
-            return new Response("前の単語に続いていません",{
-                status:400
-            });
-        }
-        else if(previousWords.indexOf(nextWord) != -1){
-            return new Response("既に使われた単語です！",{
-                status:400
-            });
-        }
-        
-        previousWords[previousWords.length] = nextWord;
-        return new Response(previousWords)
-    }
-    /*if(req.method === "GET" && pathname === "/dbtest"){
-        const users = ["a", "b", "c"];
-        const db = new DB("/wnjpn.db");
-        const k = "課金"
-        for (const user of db.query(`SELECT wordid FROM word where lemma = '${k}'`,)) {
-            console.log(user);
-        }
-        const a = db.query(`SELECT wordid FROM word where lemma = '${k}'`);
-        const b = a.pop().pop()
-        console.log(b == 216405);
-        db.close();
-        return new Response(b);
-    }*/
     return serveDir(req,{
         fsRoot:"public",
         urlRoot:"",
