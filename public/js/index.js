@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
 
-import {getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+import {getAuth } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
 import {FIREBASE_CONFIG} from "./config.js";
 
 const app = initializeApp(FIREBASE_CONFIG);
