@@ -10,7 +10,7 @@
     <script type="module" src="js/uiManage.js"></script>
 </head>
 <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">いちにちとり</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,31 +33,33 @@
           </div>
         </div>
       </nav>
-    <div class="p-2">
-      <div class="h3">しりとり</div>
-      <p class="bg-info text-dark rounded p-3" id="info" style="display:none">
-                
-      </p>
-      <p class="bg-warning text-dark rounded p-3" id="warning" style="display:none">
-          
-      </p>
-      <div id="previousWord" class="pb-2"></div>
-      <div class='input-group w-50 pb-5'>
-        <input id="nextWordInput" type="text" class="form-control" placeholder="しりとり"/>
-        <div class="input-group-append">
-          <button id="nextWordSendButtonEndless" class="btn btn-primary">送信</button>
-        </div>
-      </div>
-      <script type="module" src="js/sendWord.js"></script>
-      <div>
-          <p class="h4 pt-4">履歴</p>
-          <div class="border-bottom mb-4"></div>
-      </div>
-      <div id="preWords">
-
-      </div>
-    </div>
-</body>
     
-  </script>
+    <script type="module" src="js/login.js"></script>
+    <div id="all" style="display: none;">
+      <div class="p-2">
+        <p class="bg-info text-dark rounded p-3" id="info" style="display:none">
+                  
+        </p>
+        <p class="bg-warning text-dark rounded p-3" id="warning" style="display:none">
+            
+        </p>
+      </div>
+        <div class="border mx-2 text-center mx-auto w-75">
+          <div class="h3 pt-2">ログイン</div>
+          <div class='form-group px-2 w-75 mx-auto'>
+            <label class="form-label">メールアドレス</label>
+            <input id="email" type="text" class="form-control"/>
+          </div>
+          <div class='form-group px-2 w-75 mx-auto'>
+            <label class="form-label">パスワード</label>
+            <input id="pass" type="password" class="form-control"/>
+          </div>
+          <div class="p-2">
+              <a href="register" class="mx-2">新規登録はこちら</a>
+              <button id="login"class="btn btn-success mx-4">ログイン</button>
+          </div>
+        </div>
+    </div>
+    <div class="p-2" id="isLoginSen"></div>
+</body>
 </html>
