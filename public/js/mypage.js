@@ -52,7 +52,6 @@ window.addEventListener("load",async(event) =>{
 
 document.querySelector("#logout").onclick = 
 async(event) => {
-    console.log("aa");
     await signOut(auth).then(() => {
         window.location.href = '/';
       }).catch((error) => {
