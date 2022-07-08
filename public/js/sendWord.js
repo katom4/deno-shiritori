@@ -126,7 +126,6 @@ async(event) => {
           createAt:serverTimestamp(),
         });
       } catch (e) {
-        console.error("Error adding document: ", e);
         alert("送信エラーが発生しました");
         return;
       }
